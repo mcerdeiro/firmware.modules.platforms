@@ -1,7 +1,4 @@
-/* Copyright 2014, Daniel Cohen
- * Copyright 2014, Esteban Volentini
- * Copyright 2014, Matias Giori
- * Copyright 2014, Franco Salinas
+/* Copyright 2014, Mariano Cerdeiro
  *
  * This file is part of CIAA Firmware.
  *
@@ -33,9 +30,9 @@
  *
  */
 
-/** \brief CIAA Flash Driver for LPC4337
- **
- ** Implements the Flash Driver for LPC4337
+#ifndef _CIAADRIVERAIO_INTERNAL_H_
+#define _CIAADRIVERAIO_INTERNAL_H_
+/** \brief Internal Header file of Analog IO Driver
  **
  **/
 
@@ -43,79 +40,67 @@
  ** @{ */
 /** \addtogroup Drivers CIAA Drivers
  ** @{ */
-/** \addtogroup Flash Flash Drivers
+/** \addtogroup AIO Analog Input Output Drivers
  ** @{ */
 
 /*
  * Initials     Name
  * ---------------------------
- * DC           Daniel Cohen
- * EV           Esteban Volentini
- * MG           Matias Giori
- * FS           Franco Salinas  
+ * MaCe         Mariano Cerdeiro
  */
 
 /*
  * modification history (new versions first)
  * -----------------------------------------------------------
- * 20141006 v0.0.1  EV  first initial version
+ * 20141101 v0.0.1 initials initial version
  */
 
 /*==================[inclusions]=============================================*/
-#include "ciaaDriverFlash.h"
+#include "ciaaPOSIX_stdint.h"
 
-/*==================[macros and definitions]=================================*/
+/*==================[cplusplus]==============================================*/
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-/*==================[internal data declaration]==============================*/
+/*==================[macros]=================================================*/
 
-/*==================[internal functions declaration]=========================*/
+/*==================[typedef]================================================*/
+/** \brief Buffer Structure */
+typedef struct {
+   uint16_t length;
+   uint8_t buffer[2048];
+} ciaaDriverAio_bufferType;
 
-/*==================[internal data definition]===============================*/
+/** \brief Aio Type */
+typedef struct {
+   ciaaDriverAio_bufferType rxBuffer;
+   ciaaDriverAio_bufferType txBuffer;
+} ciaaDriverAio_uartType;
 
-/*==================[external data definition]===============================*/
+/*==================[external data declaration]==============================*/
+/** \brief Aio 0 */
+extern ciaaDriverAio_uartType ciaaDriverAio_uart0;
 
-/*==================[internal functions definition]==========================*/
+/** \brief Aio 1 */
+extern ciaaDriverAio_uartType ciaaDriverAio_uart1;
 
-/*==================[external functions definition]==========================*/
-extern ciaaDevices_deviceType * ciaaDriverFlash_open(char const * path, ciaaDevices_deviceType * device, uint8_t const oflag)
-{
-   return device;
+/*==================[external functions declaration]=========================*/
+extern void ciaaDriverAio_uart0_rxIndication(void);
+
+extern void ciaaDriverAio_uart0_txConfirmation(void);
+
+extern void ciaaDriverAio_uart1_rxIndication(void);
+
+extern void ciaaDriverAio_uart1_txConfirmation(void);
+
+/*==================[cplusplus]==============================================*/
+#ifdef __cplusplus
 }
-
-extern int32_t ciaaDriverFlash_close(ciaaDevices_deviceType const * const device)
-{
-   return -1;
-}
-
-extern int32_t ciaaDriverFlash_ioctl(ciaaDevices_deviceType const * const device, int32_t const request, void * param)
-{
-   int32_t ret = -1;
-
-   return ret;
-}
-
-extern int32_t ciaaDriverFlash_read(ciaaDevices_deviceType const * const device, uint8_t* buffer, uint32_t size)
-{
-   int32_t ret = -1;
-
-   return ret;
-}
-
-extern int32_t ciaaDriverFlash_write(ciaaDevices_deviceType const * const device, uint8_t const * const buffer, uint32_t const size)
-{
-   int32_t ret = -1;
-
-   return ret;
-}
-
-void ciaaDriverFlash_init(void)
-{
-
-}
-
-/*==================[interrupt handlers]=====================================*/
+#endif
 /** @} doxygen end group definition */
 /** @} doxygen end group definition */
 /** @} doxygen end group definition */
 /*==================[end of file]============================================*/
+#endif /* #ifndef _CIAADRIVERAIO_INTERNAL_H_ */
 

@@ -33,9 +33,9 @@
  *
  */
 
-/** \brief CIAA Flash Driver for LPC4337
+/** \brief CIAA Flash Posix Driver
  **
- ** Implements the Flash Driver for LPC4337
+ ** Simulated Flash Driver for Posix for testing proposes
  **
  **/
 
